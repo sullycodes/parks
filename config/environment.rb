@@ -6,7 +6,8 @@
 require 'nokogiri'
 require 'open-uri'
 
-# require_relative '../lib/scraper'
 require '../lib/parks'
+require '../lib/cli'
+require '../lib/scraper'
 
 
