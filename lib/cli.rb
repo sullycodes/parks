@@ -14,7 +14,7 @@ class CLI
     puts ""
     list_parks
     choose_park
-    # display_park(n-1)
+    # display_park
     # puts "Would you like to see the list of parks again? (y/n)"
   end
 

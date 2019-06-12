@@ -6,7 +6,7 @@ require_relative './cli.rb'
 
 class Park 
 
-	attr_accessor :name, :url, :address, :phone, :email, :overview, :actvities, :hours, :activities
+	attr_accessor :name, :url, :address, :phone, :overview, :actvities, :hours
 
 
 	@@all = []
