@@ -45,9 +45,9 @@ class CLI
 	input = gets.chomp
 	input = input.to_i
 	
-	names.each_with_index do |e,i|
+	Park.all.each_with_index do |e,i|
 	  if i == input - 1
-	  	display_park(i)
+	  	display_park(e)
 	  	 #replace with a fin by name from an old lesson and then pass the park into display park
 		# park = Park.all.find_by_name(e)
 		# display_park(park)
@@ -58,6 +58,10 @@ class CLI
   end
 
   def display_park(park)
+  	park_url = park.url
+  	park.add_park_attributes(park_url)
+  	puts ""
+  	puts ""  	
   	puts "#{park.name}"
   	puts ""
   	puts "Overview: #{park.overview}"
@@ -68,6 +72,7 @@ class CLI
   	puts ""
   	puts "Phone: #{park.phone}"
   	puts ""
+  	puts "Website: " + "https://www.mass.gov" + "#{park.url}"
   end
 
 end #CLI

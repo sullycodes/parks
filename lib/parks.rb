@@ -6,12 +6,9 @@ require_relative './cli.rb'
 
 class Park 
 
-	attr_accessor :name, :url, :address, :phone, :overview, :actvities, :hours
-
+	attr_accessor :name, :url, :address, :phone, :overview, :activities
 
 	@@all = []
-
-	# doc = Nokogiri::HTML(open(self.url.prepend("")))
 
 	def initialize(name = nil, url = nil)
 		@name = name
@@ -19,26 +16,18 @@ class Park
 		@@all << self
 	end
 
+
 	def self.all
 		@@all
 	end
 
-	def add_park_attributes
 
-	    Park.all.each do |e|
-	      park_url = "https://www.mass.gov" + e.url
-
-	      doc = Nokogiri::HTML(open(park_url))
-
-	      e.address = doc.css('.ma__contact-group__address').text
-	      e.phone = doc.css('section.ma__contact-us > div > div > div:nth-child(2) > div > a').text.gsub(/\s/, "")
-	      e.overview = doc.css('.ma__page-overview .ma__rich-text').text.strip
-	      # e.hours = doc.css('div.page-content > div > div:nth-child(3) > div > p:nth-child(1)').text
-	    end
+	def add_park_attributes(park_url)
+		hash = Scraper.scrape_park_page(park_url)
+		@overview = hash[:overview]
+		@activities = hash[:activities]
+		@address = hash[:address]
+		@phone = hash[:phone]
 	end
-
-	# def doc
-	# 	@doc
-	# end
 
 end #Park
