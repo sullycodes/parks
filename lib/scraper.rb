@@ -38,16 +38,24 @@ class Scraper
 
       #change to a Park.all.each url + mass.gov
     doc = Nokogiri::HTML(open("https://www.mass.gov/locations/alewife-brook-reservation"))
+    # doc = Nokogiri::HTML(open("https://www.mass.gov/locations/borderland-state-park"))
+    # doc = Nokogiri::HTML(open("https://www.mass.gov/locations/hemlock-gorge-reservation"))
+    # doc = Nokogiri::HTML(open("https://www.mass.gov/locations/wrentham-state-forest"))
 
-    address = doc.css('.ma__contact-group__address').text
-    phone = doc.css('section.ma__contact-us > div > div > div:nth-child(2) > div > a').text.gsub(/\s/, "")
-    overview = doc.css('.ma__page-overview .ma__rich-text').text.strip
-    hours = doc.css('div.page-content > div > div:nth-child(3) > div > p:nth-child(1)').text
 
-    # #main-content > div.main-content.main-content--two > div.page-content > div > div:nth-child(3) > div > p:nth-child(1)
+      hash = {}
+      hash[:overview] = doc.css('.ma__page-overview .ma__rich-text').text.strip      
+      # hash[:hours] = doc.css('div.page-content > div > div:nth-child(3) > div > p:nth-child(1)').collect do |e|
+      #   e.to_s.gsub("<li>", " ").gsub("</li>", " ").strip
+      # end
+      hash[:activities] = doc.css('.ma__details__content > .ma__rich-text h3#all-activities + ul li').collect do |e|
+        e.to_s.gsub("<li>", " ").gsub("</li>", " ").strip
+      end
+      hash[:address] = doc.css('.ma__contact-group__address').text.strip
+      hash[:phone] = doc.css('.ma__content-link--phone').text.gsub(/\s/, "")
 
+      hash
+  
   end
 
 end #Scraper
-
-puts Scraper.scrape_park_page

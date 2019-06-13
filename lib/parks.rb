@@ -23,15 +23,22 @@ class Park
 		@@all
 	end
 
+	def add_park_attributes
+
+	    Park.all.each do |e|
+	      park_url = "https://www.mass.gov" + e.url
+
+	      doc = Nokogiri::HTML(open(park_url))
+
+	      e.address = doc.css('.ma__contact-group__address').text
+	      e.phone = doc.css('section.ma__contact-us > div > div > div:nth-child(2) > div > a').text.gsub(/\s/, "")
+	      e.overview = doc.css('.ma__page-overview .ma__rich-text').text.strip
+	      # e.hours = doc.css('div.page-content > div > div:nth-child(3) > div > p:nth-child(1)').text
+	    end
+	end
+
 	# def doc
 	# 	@doc
 	# end
-
-
-	# park_container = .ma__details__content #might not need
-
-	# address = .ma__contact-group__address
-	# phone = .ma__content-link ma__content-link--phone
-	# description = div.overview .ma__page-overview > div:nth-child(2) #called overview on page
 
 end #Park
