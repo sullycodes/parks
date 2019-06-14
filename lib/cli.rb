@@ -8,14 +8,20 @@ class CLI
 
   def run
     make_parks
-    puts "Welcome to Massachusetts State Parks!"
-    puts ""
-    puts "Please enter the park number from the list below to learn more about it:"
-    puts ""
+    greeting
     list_parks
     choose_park
-    # display_park
     # puts "Would you like to see the list of parks again? (y/n)"
+  end
+
+  def greeting
+  	system "clear" or system "cls"
+    3.times do puts "" end
+	puts "Welcome to Massachusetts State Parks!"
+    puts ""
+    puts "Massachusetts is home to over 150 beautiful, scenic and impeccably maintained parks. HIT ANY BUTTON to see the first 30 of our amazing parks!"
+    puts ""
+    gets.chomp
   end
 
   def make_parks
@@ -28,10 +34,26 @@ class CLI
   end
 
   def list_parks
-  	Park.all.flatten.each_with_index do |e,i|
+	Park.all[0..29].flatten.each_with_index do |e,i|  		
   		puts "#{i+1}. #{e.name}"
   	end
-  end
+	
+	puts "Enter the number of the park you like to see or HIT \"m\" for more Massachusetts State Parks."
+	
+	input = gets.chomp
+	
+	if input == "m" || "M"
+		Park.all[30..59].flatten.each_with_index do |e,i|  		
+  			puts "#{i+1}. #{e.name}"
+  		end
+  	else
+  		if input == 1..30 
+  			choose_park #(input)
+  		end
+  	end
+
+  end #list_parks
+
 
 
   def choose_park
@@ -48,10 +70,6 @@ class CLI
 	Park.all.each_with_index do |e,i|
 	  if i == input - 1
 	  	display_park(e)
-	  	 #replace with a fin by name from an old lesson and then pass the park into display park
-		# park = Park.all.find_by_name(e)
-		# display_park(park)
-	  	# 
 	  end 
 	end
   
@@ -66,7 +84,7 @@ class CLI
   	puts ""
   	puts "Overview: #{park.overview}"
   	puts ""  	
-  	puts "Activities: #{park.activities}"
+  	puts "Activities: #{park.activities.join(", ")}"
   	puts ""  	
   	puts "Address: #{park.address}"
   	puts ""

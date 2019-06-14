@@ -36,13 +36,6 @@ class Scraper
 
   def self.scrape_park_page(park_url)
 
-    # create an arg and pass in url
-    #call this inside add attributes and pass in BASE_URL with
-
-      #change to a Park.all.each url + mass.gov
-    # park_url = Park.all.each { |e| e.url }
-    # doc = Nokogiri::HTML(open(BASE_URL + park_url))
-
     doc = Nokogiri::HTML(open(BASE_URL + park_url))
 
     hash = {}
