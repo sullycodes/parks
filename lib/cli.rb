@@ -19,9 +19,9 @@ class CLI
     2.times do puts "" end
 	puts "Welcome to Massachusetts State Parks! Home to over 150 beautiful, scenic, and impeccably maintained parks."
     puts ""
-    puts "HIT ANY BUTTON to see the first 30 of our amazing parks!"
-    puts ""
-    gets.chomp
+    # puts "HIT ANY BUTTON to see the first 30 of our amazing parks!"
+    # puts ""
+    # gets.chomp
   end
 
   def make_parks
@@ -29,7 +29,8 @@ class CLI
   	park_array.each do |e|
   		name = e[0]
   		url = e[1]
-  		Park.new(name, url)
+  		location = e[2]
+  		Park.new(name, url, location)
       end
   end
 
@@ -43,6 +44,7 @@ class CLI
 	puts choose_text
 	
 	input = gets.chomp
+	integer = input.to_i
 	if input == "m" || input == "M"
 		system "clear" or system "cls"
     	2.times do puts "" end
@@ -50,9 +52,8 @@ class CLI
   			puts "#{i+31}. #{e.name}"
   		end
   	elsif
-  		input = input.to_i
-  		input.between?(1,30)
-  			choose_park(input)
+  		integer.between?(1,30)
+  		choose_park(integer)
   	else
   		puts ""
 		puts choose_text
@@ -64,23 +65,17 @@ class CLI
 
   def choose_park(input)
   	
-  	puts "choose park"
-
-
- #  	names = []
+ 	names = []
 	
-	# Park.all.each do |e|
-	#   names << e.name
-	# end
+	Park.all.each do |e|
+	  names << e.name
+	end
   	
-	# input = gets.chomp
-	# input = input.to_i
-	
-	# Park.all.each_with_index do |e,i|
-	#   if i == input - 1
-	#   	display_park(e)
-	#   end 
-	# end
+	Park.all.each_with_index do |e,i|
+	  if i == input - 1
+	  	display_park(e)
+	  end 
+	end
   
   end
 

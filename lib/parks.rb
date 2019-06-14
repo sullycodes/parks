@@ -6,13 +6,14 @@ require_relative './cli.rb'
 
 class Park 
 
-	attr_accessor :name, :url, :address, :phone, :overview, :activities
+	attr_accessor :name, :url, :address, :phone, :overview, :activities, :location
 
 	@@all = []
 
-	def initialize(name = nil, url = nil)
+	def initialize(name = nil, url = nil, location = nil)
 		@name = name
 		@url = url
+		@location = location
 		@@all << self
 	end
 
