@@ -36,7 +36,7 @@ class CLI
 
   def list_parks
 	Park.all[0..29].flatten.each_with_index do |e,i|  		
-  		puts "#{i+1}. #{e.name}"
+  		puts "#{i+1}. #{e.name} #{e.location}"
   	end
 	
 	choose_text = "Enter the number of the park you like to see or HIT \"m\" for more Massachusetts State Parks."
@@ -54,10 +54,61 @@ class CLI
   	elsif
   		integer.between?(1,30)
   		choose_park(integer)
-  	else
+  	end
   		puts ""
 		puts choose_text
+
+  	input = gets.chomp
+	integer = input.to_i
+	#61-90
+	if input == "m" || input == "M"
+		system "clear" or system "cls"
+    	2.times do puts "" end
+		Park.all[60..89].flatten.each_with_index do |e,i|  		
+  			puts "#{i+61}. #{e.name}"
+  		end
+  	elsif
+  		integer.between?(31,60)
+  		choose_park(integer)
   	end
+  		puts ""
+		puts choose_text
+
+	input = gets.chomp
+	integer = input.to_i
+	#91-120
+	if input == "m" || input == "M"
+		system "clear" or system "cls"
+    	2.times do puts "" end
+		Park.all[90..119].flatten.each_with_index do |e,i|  		
+  			puts "#{i+91}. #{e.name}"
+  		end
+  	elsif
+  		integer.between?(91,120)
+  		choose_park(integer)
+  	end
+  		puts ""
+		puts choose_text
+
+	input = gets.chomp
+	integer = input.to_i
+	#121-156
+	if input == "m" || input == "M"
+		system "clear" or system "cls"
+    	2.times do puts "" end
+		Park.all[120..155].flatten.each_with_index do |e,i|  		
+  			puts "#{i+121}. #{e.name}"
+  		end
+  	elsif
+  		integer.between?(121,156)
+  		choose_park(integer)
+  	end
+  		puts ""
+		puts choose_text
+
+		input = gets.chomp
+		integer = input.to_i
+
 
   end #list_parks
 

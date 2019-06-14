@@ -17,10 +17,6 @@ class Scraper
       
       doc = Nokogiri::HTML(open(BASE_URL + "/guides/alphabetical-list-of-massachusetts-state-parks"))
       park = doc.css("div.main-content.main-content--full .ma__rich-text a")
-      
-      rough_loc = doc.css(".page-content p")
-      rough_loc.search("a").remove
-      location = rough_loc.css("p").text.strip
 
       parks = []
 
@@ -28,7 +24,6 @@ class Scraper
         array = []
         array << e.text
         array << e.css("@href").text
-        array << location
         parks << array
       end
 
@@ -37,6 +32,14 @@ class Scraper
       parks
 
   end
+
+  # def add_location(array)
+  #     doc = Nokogiri::HTML(open(BASE_URL + "/guides/alphabetical-list-of-massachusetts-state-parks"))
+  #     rough_loc = doc.css(".page-content p")
+  #     rough_loc.search("a").remove
+  #     location = rough_loc.css("p").text.strip
+  #     array << location
+  # end
 
 
   def self.scrape_park_page(park_url)
