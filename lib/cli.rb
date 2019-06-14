@@ -10,16 +10,16 @@ class CLI
     make_parks
     greeting
     list_parks
-    choose_park
+    # choose_park
     # puts "Would you like to see the list of parks again? (y/n)"
   end
 
   def greeting
   	system "clear" or system "cls"
-    3.times do puts "" end
-	puts "Welcome to Massachusetts State Parks!"
+    2.times do puts "" end
+	puts "Welcome to Massachusetts State Parks! Home to over 150 beautiful, scenic, and impeccably maintained parks."
     puts ""
-    puts "Massachusetts is home to over 150 beautiful, scenic and impeccably maintained parks. HIT ANY BUTTON to see the first 30 of our amazing parks!"
+    puts "HIT ANY BUTTON to see the first 30 of our amazing parks!"
     puts ""
     gets.chomp
   end
@@ -38,40 +38,49 @@ class CLI
   		puts "#{i+1}. #{e.name}"
   	end
 	
-	puts "Enter the number of the park you like to see or HIT \"m\" for more Massachusetts State Parks."
+	choose_text = "Enter the number of the park you like to see or HIT \"m\" for more Massachusetts State Parks."
+	puts ""
+	puts choose_text
 	
 	input = gets.chomp
-	
-	if input == "m" || "M"
+	if input == "m" || input == "M"
+		system "clear" or system "cls"
+    	2.times do puts "" end
 		Park.all[30..59].flatten.each_with_index do |e,i|  		
-  			puts "#{i+1}. #{e.name}"
+  			puts "#{i+31}. #{e.name}"
   		end
+  	elsif
+  		input = input.to_i
+  		input.between?(1,30)
+  			choose_park(input)
   	else
-  		if input == 1..30 
-  			choose_park #(input)
-  		end
+  		puts ""
+		puts choose_text
   	end
 
   end #list_parks
 
 
 
-  def choose_park
-  	names = []
-	
-	Park.all.each do |e|
-	  names << e.name
-	end
+  def choose_park(input)
   	
-  	puts "What number would you like to see?"
-	input = gets.chomp
-	input = input.to_i
+  	puts "choose park"
+
+
+ #  	names = []
 	
-	Park.all.each_with_index do |e,i|
-	  if i == input - 1
-	  	display_park(e)
-	  end 
-	end
+	# Park.all.each do |e|
+	#   names << e.name
+	# end
+  	
+	# input = gets.chomp
+	# input = input.to_i
+	
+	# Park.all.each_with_index do |e,i|
+	#   if i == input - 1
+	#   	display_park(e)
+	#   end 
+	# end
   
   end
 
