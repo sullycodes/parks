@@ -10,14 +10,17 @@ class CLI
     make_parks
     greeting
     list_parks
-    # choose_park
-    # puts "Would you like to see the list of parks again? (y/n)"
   end
 
   def greeting
   	clear_screen
 	puts "Welcome to Massachusetts State Parks! Home to over 150 beautiful, scenic, and impeccably maintained parks."
     puts ""
+  end
+
+  def goodbye
+  	clear_screen
+  	puts "Thanks for visiting Massachusetts State Parks!"
   end
 
   def make_parks
@@ -35,19 +38,24 @@ class CLI
     2.times do puts "" end
   end
 
-  def leave_or_again?
+  def invalid
   	puts ""
   	puts "Invalid entry."
   	puts ""
-  	puts "To return to the beginning of the list ENTER \"r\" or ENTER anything else to exit."
+  	start_over?
+  end
+
+
+  def start_over?
+  	puts ""
+  	puts "Would you like to start over? (y/n)?"
   	input = gets.chomp
-  	if input == "r" || input == "R"
+  	if input == "y" || input == "Y"
   		clear_screen
   		greeting
   		list_parks
   	else
-  		clear_screen
-  		puts "Thanks for visiting Massachusetts State Parks!"
+  		goodbye
   	end
   end
 
@@ -112,19 +120,17 @@ class CLI
 				  						choose_park(integer)
 				  					end # last 30+ parks	
 							end #if/elsif 4		
-					end #if/elsif 3	
-			end #if/elsif 2
-  	# end #if/elsif 1
-  	else
-  		leave_or_again?
-  	end
-
-
-
-		# puts leave_or_again_text
+					else
+  						invalid
+  					end #if/elsif/else 3
+  			else
+  				invalid
+  			end #if/elsif/else 2
+  	else 
+  		invalid
+  	end #if/elsif/else 1
 
   end #list_parks
-
 
   def choose_park(input)
   	
@@ -141,6 +147,7 @@ class CLI
 	end
   
   end
+
 
   def display_park(park)
   	park_url = park.url
