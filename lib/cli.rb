@@ -15,13 +15,9 @@ class CLI
   end
 
   def greeting
-  	system "clear" or system "cls"
-    2.times do puts "" end
+  	clear_screen
 	puts "Welcome to Massachusetts State Parks! Home to over 150 beautiful, scenic, and impeccably maintained parks."
     puts ""
-    # puts "HIT ANY BUTTON to see the first 30 of our amazing parks!"
-    # puts ""
-    # gets.chomp
   end
 
   def make_parks
@@ -34,9 +30,30 @@ class CLI
       end
   end
 
+  def clear_screen
+	system "clear" or system "cls"
+    2.times do puts "" end
+  end
+
+  def leave_or_again?
+  	puts ""
+  	puts "Invalid entry."
+  	puts ""
+  	puts "To return to the beginning of the list ENTER \"r\" or ENTER anything else to exit."
+  	input = gets.chomp
+  	if input == "r" || input == "R"
+  		clear_screen
+  		greeting
+  		list_parks
+  	else
+  		clear_screen
+  		puts "Thanks for visiting Massachusetts State Parks!"
+  	end
+  end
+
+
   def list_parks
 	choose_text = "Enter the number of the park you like to see or ENTER \"m\" for more Massachusetts State Parks."
-	leave_or_again_text =  "ENTER \"x\" to exit or \"r\" to return to the beginning of the list. "
 
 	Park.all[0..29].flatten.each_with_index do |e,i|  		
   		puts "#{i+1}. #{e.name} #{e.location}"
@@ -44,78 +61,67 @@ class CLI
 	
 	puts ""
 	puts choose_text
-	
 	input = gets.chomp
 	integer = input.to_i
-	#31-60
-	if input == "m" || input == "M"
-		system "clear" or system "cls"
-    	2.times do puts "" end
+
+	if integer.between?(1,30) #display a chosen park from the list - if/elsif 1
+  		choose_park(integer)
+	elsif input == "m" || input == "M" #show 31-60
+		clear_screen
 		Park.all[30..59].flatten.each_with_index do |e,i|  		
   			puts "#{i+31}. #{e.name}"
   		end
-  	elsif
-  		integer.between?(1,30)
-  		choose_park(integer)
-  	else
   		puts ""
 		puts choose_text
-	end
-
-  	input = gets.chomp
-	integer = input.to_i
-	#61-90
-	if input == "m" || input == "M"
-		system "clear" or system "cls"
-    	2.times do puts "" end
-		Park.all[60..89].flatten.each_with_index do |e,i|  		
-  			puts "#{i+61}. #{e.name}"
-  		end
-  	elsif
-  		integer.between?(31,60)
-  		choose_park(integer)
-  	else
-  		puts ""
-		puts choose_text
-	end
-
-	input = gets.chomp
-	integer = input.to_i
-	# #91-120
-	# if input == "m" || input == "M"
-	# 	system "clear" or system "cls"
- #    	2.times do puts "" end
-	# 	Park.all[90..119].flatten.each_with_index do |e,i|  		
- #  			puts "#{i+91}. #{e.name}"
- #  		end
- #  	elsif
- #  		integer.between?(91,120)
- #  		choose_park(integer)
- #  	end
- #  		puts ""
-	# 	puts choose_text
-
-	# input = gets.chomp
-	# integer = input.to_i
-	# #121-156
-	# if input == "m" || input == "M"
-	# 	system "clear" or system "cls"
- #    	2.times do puts "" end
-	# 	Park.all[120..155].flatten.each_with_index do |e,i|  		
- #  			puts "#{i+121}. #{e.name}"
- #  		end
- #  	elsif
- #  		integer.between?(121,156)
-  		
- #  	end
-  		puts ""
-		puts "This is the end of the list. Enter the number of the park you wish to see."
-		puts leave_or_again_text
-
 		input = gets.chomp
 		integer = input.to_i
-		choose_park(integer)
+			if integer.between?(31,60) # if/elsif 2
+  				choose_park(integer)
+			elsif input == "m" || input == "M" #show 61-90
+				clear_screen
+				Park.all[60..89].flatten.each_with_index do |e,i|  		
+	  				puts "#{i+61}. #{e.name}"
+	  			end
+		  		puts ""
+				puts choose_text
+				input = gets.chomp
+				integer = input.to_i
+					if integer.between?(61,90) #display a chosen park from the list - if/elsif 3	
+		  				choose_park(integer)
+					elsif input == "m" || input == "M" #show 91-120
+						clear_screen
+						Park.all[90..119].flatten.each_with_index do |e,i|  		
+			  				puts "#{i+91}. #{e.name}"
+			  			end
+				  		puts ""
+						puts choose_text
+						input = gets.chomp
+						integer = input.to_i
+							if integer.between?(91,120) #display a chosen park from the list - if/elsif 4	
+				  				choose_park(integer)
+							elsif input == "m" || input == "M" #show 121-156
+								clear_screen
+								Park.all[120..155].flatten.each_with_index do |e,i|  		
+					  				puts "#{i+121}. #{e.name}"
+					  			end
+						  		puts ""
+								puts "This is the end of the list. Enter the number of the park you wish to see."
+								input = gets.chomp
+								integer = input.to_i
+									if integer.between?(121,156) #display a chosen park from the list - if/elsif 4	
+				  						choose_park(integer)
+				  					end # last 30+ parks	
+							end #if/elsif 4		
+					end #if/elsif 3	
+			end #if/elsif 2
+  	# end #if/elsif 1
+  	else
+  		leave_or_again?
+  	end
 
+
+
+		# puts leave_or_again_text
 
   end #list_parks
 
@@ -143,7 +149,7 @@ class CLI
   	puts ""  	
   	puts "#{park.name}"
   	puts ""
-  	puts "Overview: \r\t #{park.overview}"
+  	puts "Overview: #{park.overview}"
   	puts ""  	
   	puts "Activities: #{park.activities.join("; ")}"
   	puts ""  	
