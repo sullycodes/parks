@@ -23,20 +23,12 @@ class CLI
   	puts "Thanks for visiting Massachusetts State Parks!"
   end
 
-  def make_parks
-  	park_array = Scraper.scrape_index #returns array of arrays[["Alewife", "site.htm"], ["Park B", "url"]]
-  	park_array.each do |e|
-  		name = e[0]
-  		url = e[1]
-  		location = e[2]
-  		Park.new(name, url, location)
-      end
-  end
 
   def clear_screen
 	system "clear" or system "cls"
     2.times do puts "" end
   end
+
 
   def invalid
   	puts ""
@@ -48,6 +40,7 @@ class CLI
 
   def start_over?
   	puts ""
+  	puts ""
   	puts "Would you like to start over? (y/n)?"
   	input = gets.chomp
   	if input == "y" || input == "Y"
@@ -57,6 +50,17 @@ class CLI
   	else
   		goodbye
   	end
+  end
+
+
+ def make_parks
+  	park_array = Scraper.scrape_index #returns array of arrays[["Alewife", "site.htm"], ["Park B", "url"]]
+  	park_array.each do |e|
+  		name = e[0]
+  		url = e[1]
+  		location = e[2]
+  		Park.new(name, url, location)
+      end
   end
 
 
@@ -118,8 +122,10 @@ class CLI
 								integer = input.to_i
 									if integer.between?(121,156) #display a chosen park from the list - if/elsif 4	
 				  						choose_park(integer)
-				  					end # last 30+ parks	
-							end #if/elsif 4		
+				  					end # last 30+ parks		
+							else
+  								invalid
+  						end #if/elsif/else 4
 					else
   						invalid
   					end #if/elsif/else 3
@@ -131,6 +137,7 @@ class CLI
   	end #if/elsif/else 1
 
   end #list_parks
+
 
   def choose_park(input)
   	
@@ -150,11 +157,12 @@ class CLI
 
 
   def display_park(park)
+  	clear_screen
   	park_url = park.url
   	park.add_park_attributes(park_url)
   	puts ""
   	puts ""  	
-  	puts "#{park.name}"
+  	puts "#{park.name.upcase}"
   	puts ""
   	puts "Overview: #{park.overview}"
   	puts ""  	
@@ -165,6 +173,7 @@ class CLI
   	puts "Phone: #{park.phone}"
   	puts ""
   	puts "Website: " + "https://www.mass.gov" + "#{park.url}"
+  	start_over?
   end
 
 end #CLI
