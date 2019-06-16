@@ -59,7 +59,7 @@ class CLI
 
 
   def list_parks
-	choose_text = "Enter the number of the park you like to see or ENTER \"m\" for more Massachusetts State Parks."
+	choose_text = "Enter the number of the park you would like to see or ENTER \"m\" for more Massachusetts State Parks."
 
 	Park.all[0..29].flatten.each_with_index do |e,i|  		
   		puts "#{i+1}. #{e.name}"
@@ -119,7 +119,7 @@ class CLI
 				  					end # last 30+ parks		
 							else
   								invalid
-  						end #if/elsif/else 4
+  							end #if/elsif/else 4
 					else
   						invalid
   					end #if/elsif/else 3
@@ -134,12 +134,6 @@ class CLI
 
 
   def choose_park(input)
-  	
- 	names = []
-	
-	Park.all.each do |e|
-	  names << e.name
-	end
   	
 	Park.all.each_with_index do |e,i|
 	  if i == input - 1
