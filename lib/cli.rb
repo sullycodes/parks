@@ -116,6 +116,8 @@ class CLI
 								integer = input.to_i
 									if integer.between?(121,156) #display a chosen park from the list - if/elsif 4	
 				  						choose_park(integer)
+				  					else
+				  						invalid
 				  					end # last 30+ parks		
 							else
   								invalid
