@@ -1,19 +1,14 @@
-require 'nokogiri'
-require 'open-uri'
-require_relative './scraper.rb'
-require_relative './cli.rb'
-
+require_relative '../config/environment'
 
 class Park 
 
-	attr_accessor :name, :url, :address, :phone, :overview, :activities, :location
+	attr_accessor :name, :url, :address, :phone, :overview, :activities
 
 	@@all = []
 
-	def initialize(name = nil, url = nil, location = nil)
+	def initialize(name = nil, url = nil)
 		@name = name
 		@url = url
-		@location = location
 		@@all << self
 	end
 

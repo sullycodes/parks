@@ -1,8 +1,4 @@
-# require '../config/environment.rb'
-require_relative './scraper.rb'
-require_relative './parks.rb'
-require 'pry'
-
+require_relative '../config/environment'
 
 class CLI 
 
@@ -33,7 +29,6 @@ class CLI
   def invalid
   	puts ""
   	puts "Invalid entry."
-  	puts ""
   	start_over?
   end
 
@@ -58,8 +53,7 @@ class CLI
   	park_array.each do |e|
   		name = e[0]
   		url = e[1]
-  		location = e[2]
-  		Park.new(name, url, location)
+  		Park.new(name, url)
       end
   end
 
@@ -68,7 +62,7 @@ class CLI
 	choose_text = "Enter the number of the park you like to see or ENTER \"m\" for more Massachusetts State Parks."
 
 	Park.all[0..29].flatten.each_with_index do |e,i|  		
-  		puts "#{i+1}. #{e.name} #{e.location}"
+  		puts "#{i+1}. #{e.name}"
   	end
 	
 	puts ""
@@ -163,6 +157,8 @@ class CLI
   	puts ""
   	puts ""  	
   	puts "#{park.name.upcase}"
+  	puts ""
+  	puts "*******************************************************"
   	puts ""
   	puts "Overview: #{park.overview}"
   	puts ""  	
